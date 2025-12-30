@@ -5,3 +5,4 @@ numpy
 # soundfile
 openai-whisper
 torch
+python-dotenv
