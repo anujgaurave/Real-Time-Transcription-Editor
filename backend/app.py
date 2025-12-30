@@ -152,5 +152,10 @@ def load_transcript(data):
             "message": "Failed to load transcript"
         })
 if __name__ == "__main__":
-    print("🚀 Transcription Backend Running (SAFE MODE)")
-    socketio.run(app, host="0.0.0.0", port=5000)
+    import os
+
+    port = int(os.environ.get("PORT", 5000))
+
+    print(f"🚀 Transcription Backend Running on port {port}")
+    socketio.run(app, host="0.0.0.0", port=port)
+
