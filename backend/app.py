@@ -11,7 +11,6 @@ from google_stt_worker import GoogleSTTWorker
 from models.transcript_model import get_transcript_by_id
 from bson import ObjectId
 from models.db import transcript_collection
-from datetime import datetime
 
 
 app = Flask(__name__)
