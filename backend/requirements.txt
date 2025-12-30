@@ -6,3 +6,4 @@ numpy
 openai-whisper
 torch
 python-dotenv
+google-cloud-speech
