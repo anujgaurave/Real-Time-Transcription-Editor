@@ -1,14 +1,24 @@
 import { io } from "socket.io-client";
 
-export const socket = io("http://localhost:5000", {
-  transports: ["websocket", "polling"], // ✅ allow fallback
+const SOCKET_URL = "https://gauraveanuj-real-time-transcription.onrender.com";
+
+export const socket = io(SOCKET_URL, {
+  transports: ["polling", "websocket"], // ✅ 
+  path: "/socket.io",        
   reconnection: true,
+  reconnectionAttempts: 10,
+  reconnectionDelay: 1000,
+  timeout: 20000,            
 });
 
 socket.on("connect", () => {
   console.log("✅ Socket connected:", socket.id);
 });
 
-socket.on("disconnect", () => {
-  console.log("❌ Socket disconnected");
+socket.on("disconnect", (reason) => {
+  console.log("❌ Socket disconnected:", reason);
+});
+
+socket.on("connect_error", (err) => {
+  console.error("❌ Socket connection error:", err.message);
 });
