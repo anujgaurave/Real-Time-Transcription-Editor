@@ -16,6 +16,26 @@ class GoogleSTTWorker:
 
     
     def start_stream(self):
+        self.running = False
+
+        while not self.audio_queue.empty():
+            try:
+                self.audio_queue.get_nowait()
+            except queue.Empty:
+                break
+
+        self.final_text_parts = []
+        self.words = []
+
+        if self.thread and self.thread.is_alive():
+            self.audio_queue.put(None)
+
+        self.running = True
+        self.thread = threading.Thread(target=self._run, daemon=True)
+        self.thread.start()
+
+        self.socketio.emit("stt_ready")
+        print("🎙️ STT started (clean session)")
         if self.running:
             return
 
